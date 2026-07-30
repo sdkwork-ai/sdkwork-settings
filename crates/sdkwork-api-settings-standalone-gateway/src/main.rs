@@ -10,7 +10,7 @@
 //!
 //! # 环境变量
 //!
-//! - `SETTINGS_DATABASE_URL`: 数据库连接字符串
+//! - `SDKWORK_DATABASE_*`: 统一的 PostgreSQL 连接与 schema 配置
 //! - `SDKWORK_SETTINGS_APPLICATION_PUBLIC_INGRESS_BIND`: 应用公开入口监听地址(默认 `0.0.0.0:8080`)
 
 use std::sync::Arc;

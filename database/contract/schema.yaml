@@ -1,12 +1,12 @@
 schema_version: 1
 kind: sdkwork.database.schema
+database_role: authoritative-server
 module_id: settings
 contract_version: 1.0.0
 owner_team: settings-platform
 compliance_level: L3
 engines:
   - postgres
-  - sqlite
 table_prefix: stg_
 tables:
   - name: stg_user_preference

@@ -19,10 +19,11 @@ profiles:
           SDKWORK_SETTINGS_PROFILE_ID: standalone.production
           SDKWORK_SETTINGS_APPLICATION_PUBLIC_INGRESS_BIND: 0.0.0.0:8080
           SDKWORK_SETTINGS_APPLICATION_PUBLIC_HTTP_URL: http://127.0.0.1:8080
-          SETTINGS_DATABASE_URL: ${SETTINGS_DATABASE_URL}
+          SDKWORK_DATABASE_URL: ${SDKWORK_DATABASE_URL}
+          SDKWORK_DATABASE_SCHEMA: sdkwork_ai_prod
     database:
-      engine: sqlite
-      url: sqlite://data/settings.db?mode=rwc
+      engine: postgresql
+      url: ${SDKWORK_DATABASE_URL}
     browser:
       target: apps/sdkwork-settings-pc
       devServer: http://localhost:5173
@@ -41,10 +42,11 @@ profiles:
           SDKWORK_SETTINGS_APPLICATION_PUBLIC_INGRESS_BIND: 0.0.0.0:8080
           SDKWORK_SETTINGS_APPLICATION_PUBLIC_HTTP_URL: https://settings.sdkwork.com
           SDKWORK_SETTINGS_PLATFORM_API_GATEWAY_HTTP_URL: https://api.sdkwork.com
-          SETTINGS_DATABASE_URL: ${SETTINGS_DATABASE_URL}
+          SDKWORK_DATABASE_URL: ${SDKWORK_DATABASE_URL}
+          SDKWORK_DATABASE_SCHEMA: sdkwork_ai_prod
     database:
-      engine: postgres
-      url: ${SETTINGS_DATABASE_URL}
+      engine: postgresql
+      url: ${SDKWORK_DATABASE_URL}
     browser:
       target: apps/sdkwork-settings-pc
       cdn: https://cdn.sdkwork.com/apps/settings/releases/latest/web-universal-cloud-browser.zip
