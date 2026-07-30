@@ -60,7 +60,7 @@ pub async fn bootstrap_settings_database(
     Ok(SettingsDatabaseHost { pool, module })
 }
 
-/// 从环境变量引导 Settings 数据库(读取 `SDKWORK_SETTINGS_DATABASE_*` 配置)。
+/// 从环境变量引导 Settings 数据库(读取统一的 `SDKWORK_DATABASE_*` 配置)。
 pub async fn bootstrap_settings_database_from_env() -> Result<SettingsDatabaseHost, String> {
     let _ = dotenvy::dotenv();
     let config = DatabaseConfig::from_env("SETTINGS")
