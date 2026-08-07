@@ -32,7 +32,7 @@ regex = "1.11"
 dashmap = "6.1"
 rand = "0.8"
 dotenvy = "0.15"
-sqlx = { version = "0.8", features = ["runtime-tokio", "postgres", "sqlite", "tls-rustls"] }
+sqlx = { version = "0.9", features = ["runtime-tokio", "postgres", "derive", "tls-rustls"] }
 chrono = { version = "0.4", features = ["serde"] }
 uuid = { version = "1", features = ["v4"] }
 

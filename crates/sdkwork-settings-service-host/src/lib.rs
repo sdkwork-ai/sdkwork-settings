@@ -89,18 +89,10 @@ impl SettingsServiceHost {
                 .await?;
                 Ok(row.map(UserPreference::from))
             }
-            DatabasePool::Sqlite(pool, _) => {
-                let row = sqlx::query_as::<_, UserPreferenceRow>(
-                    "SELECT * FROM settings_user_preference \
-                     WHERE tenant_id = ?1 AND user_id = ?2 AND namespace = ?3 AND preference_key = ?4",
-                )
-                .bind(tenant_id)
-                .bind(user_id)
-                .bind(namespace)
-                .bind(key)
-                .fetch_optional(pool)
-                .await?;
-                Ok(row.map(UserPreference::from))
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
             }
         }
     }
@@ -127,17 +119,10 @@ impl SettingsServiceHost {
                 .await?;
                 Ok(rows.into_iter().map(UserPreference::from).collect())
             }
-            DatabasePool::Sqlite(pool, _) => {
-                let rows = sqlx::query_as::<_, UserPreferenceRow>(
-                    "SELECT * FROM settings_user_preference \
-                     WHERE tenant_id = ?1 AND user_id = ?2 AND namespace = ?3",
-                )
-                .bind(tenant_id)
-                .bind(user_id)
-                .bind(namespace)
-                .fetch_all(pool)
-                .await?;
-                Ok(rows.into_iter().map(UserPreference::from).collect())
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
             }
         }
     }
@@ -191,28 +176,10 @@ impl SettingsServiceHost {
                 .await?;
                 Ok(row.into())
             }
-            DatabasePool::Sqlite(pool, _) => {
-                let row = sqlx::query_as::<_, UserPreferenceRow>(
-                    "INSERT INTO settings_user_preference \
-                     (id, tenant_id, user_id, namespace, preference_key, preference_value, value_type, created_at, updated_at) \
-                     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?8) \
-                     ON CONFLICT (tenant_id, user_id, namespace, preference_key) DO UPDATE SET \
-                     preference_value = EXCLUDED.preference_value, \
-                     value_type = EXCLUDED.value_type, \
-                     updated_at = EXCLUDED.updated_at \
-                     RETURNING *",
-                )
-                .bind(id)
-                .bind(tenant_id)
-                .bind(user_id)
-                .bind(namespace)
-                .bind(key)
-                .bind(value)
-                .bind(&value_type)
-                .bind(now)
-                .fetch_one(pool)
-                .await?;
-                Ok(row.into())
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
             }
         }
     }
@@ -250,18 +217,10 @@ impl SettingsServiceHost {
                 .await?
                 .rows_affected()
             }
-            DatabasePool::Sqlite(pool, _) => {
-                sqlx::query(
-                    "DELETE FROM settings_user_preference \
-                     WHERE tenant_id = ?1 AND user_id = ?2 AND namespace = ?3 AND preference_key = ?4",
-                )
-                .bind(tenant_id)
-                .bind(user_id)
-                .bind(namespace)
-                .bind(key)
-                .execute(pool)
-                .await?
-                .rows_affected()
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
             }
         };
         if affected == 0 {
@@ -297,17 +256,10 @@ impl SettingsServiceHost {
                 .await?;
                 Ok(row.map(TenantConfig::from))
             }
-            DatabasePool::Sqlite(pool, _) => {
-                let row = sqlx::query_as::<_, TenantConfigRow>(
-                    "SELECT * FROM settings_tenant_config \
-                     WHERE tenant_id = ?1 AND namespace = ?2 AND config_key = ?3",
-                )
-                .bind(tenant_id)
-                .bind(namespace)
-                .bind(key)
-                .fetch_optional(pool)
-                .await?;
-                Ok(row.map(TenantConfig::from))
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
             }
         }
     }
@@ -332,16 +284,10 @@ impl SettingsServiceHost {
                 .await?;
                 Ok(rows.into_iter().map(TenantConfig::from).collect())
             }
-            DatabasePool::Sqlite(pool, _) => {
-                let rows = sqlx::query_as::<_, TenantConfigRow>(
-                    "SELECT * FROM settings_tenant_config \
-                     WHERE tenant_id = ?1 AND namespace = ?2",
-                )
-                .bind(tenant_id)
-                .bind(namespace)
-                .fetch_all(pool)
-                .await?;
-                Ok(rows.into_iter().map(TenantConfig::from).collect())
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
             }
         }
     }
@@ -387,29 +333,10 @@ impl SettingsServiceHost {
                 .await?;
                 Ok(row.into())
             }
-            DatabasePool::Sqlite(pool, _) => {
-                let row = sqlx::query_as::<_, TenantConfigRow>(
-                    "INSERT INTO settings_tenant_config \
-                     (id, tenant_id, namespace, config_key, config_value, value_type, created_at, updated_at, created_by, updated_by) \
-                     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?7, ?8, ?8) \
-                     ON CONFLICT (tenant_id, namespace, config_key) DO UPDATE SET \
-                     config_value = EXCLUDED.config_value, \
-                     value_type = EXCLUDED.value_type, \
-                     updated_at = EXCLUDED.updated_at, \
-                     updated_by = EXCLUDED.updated_by \
-                     RETURNING *",
-                )
-                .bind(id)
-                .bind(tenant_id)
-                .bind(namespace)
-                .bind(key)
-                .bind(value)
-                .bind(&value_type)
-                .bind(now)
-                .bind(operator_id)
-                .fetch_one(pool)
-                .await?;
-                Ok(row.into())
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
             }
         }
     }
@@ -436,16 +363,11 @@ impl SettingsServiceHost {
             .execute(pool)
             .await?
             .rows_affected(),
-            DatabasePool::Sqlite(pool, _) => sqlx::query(
-                "DELETE FROM settings_tenant_config \
-                     WHERE tenant_id = ?1 AND namespace = ?2 AND config_key = ?3",
-            )
-            .bind(tenant_id)
-            .bind(namespace)
-            .bind(key)
-            .execute(pool)
-            .await?
-            .rows_affected(),
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
+            }
         };
         if affected == 0 {
             return Err(ServiceError::NotFound);
@@ -478,16 +400,10 @@ impl SettingsServiceHost {
                 .await?;
                 Ok(row.map(SystemSetting::from))
             }
-            DatabasePool::Sqlite(pool, _) => {
-                let row = sqlx::query_as::<_, SystemSettingRow>(
-                    "SELECT * FROM settings_system_setting \
-                     WHERE namespace = ?1 AND setting_key = ?2",
-                )
-                .bind(namespace)
-                .bind(key)
-                .fetch_optional(pool)
-                .await?;
-                Ok(row.map(SystemSetting::from))
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
             }
         }
     }
@@ -509,14 +425,10 @@ impl SettingsServiceHost {
                 .await?;
                 Ok(rows.into_iter().map(SystemSetting::from).collect())
             }
-            DatabasePool::Sqlite(pool, _) => {
-                let rows = sqlx::query_as::<_, SystemSettingRow>(
-                    "SELECT * FROM settings_system_setting WHERE namespace = ?1",
-                )
-                .bind(namespace)
-                .fetch_all(pool)
-                .await?;
-                Ok(rows.into_iter().map(SystemSetting::from).collect())
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
             }
         }
     }
@@ -567,32 +479,10 @@ impl SettingsServiceHost {
                 .await?;
                 Ok(row.into())
             }
-            DatabasePool::Sqlite(pool, _) => {
-                let row = sqlx::query_as::<_, SystemSettingRow>(
-                    "INSERT INTO settings_system_setting \
-                     (id, namespace, setting_key, setting_value, value_type, scope, scope_value, created_at, updated_at, created_by, updated_by) \
-                     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?8, ?9, ?9) \
-                     ON CONFLICT (namespace, setting_key) DO UPDATE SET \
-                     setting_value = EXCLUDED.setting_value, \
-                     value_type = EXCLUDED.value_type, \
-                     scope = EXCLUDED.scope, \
-                     scope_value = EXCLUDED.scope_value, \
-                     updated_at = EXCLUDED.updated_at, \
-                     updated_by = EXCLUDED.updated_by \
-                     RETURNING *",
-                )
-                .bind(id)
-                .bind(namespace)
-                .bind(key)
-                .bind(value)
-                .bind(&value_type)
-                .bind(&scope)
-                .bind(scope_value)
-                .bind(now)
-                .bind(operator_id)
-                .fetch_one(pool)
-                .await?;
-                Ok(row.into())
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
             }
         }
     }
@@ -617,15 +507,11 @@ impl SettingsServiceHost {
             .execute(pool)
             .await?
             .rows_affected(),
-            DatabasePool::Sqlite(pool, _) => sqlx::query(
-                "DELETE FROM settings_system_setting \
-                     WHERE namespace = ?1 AND setting_key = ?2",
-            )
-            .bind(namespace)
-            .bind(key)
-            .execute(pool)
-            .await?
-            .rows_affected(),
+            _ => {
+                return Err(ServiceError::Database(format!(
+                    "settings service requires a PostgreSQL pool (DATABASE_SPEC: authoritative-server persistence is PostgreSQL only)"
+                )));
+            }
         };
         if affected == 0 {
             return Err(ServiceError::NotFound);
