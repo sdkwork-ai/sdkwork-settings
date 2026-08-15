@@ -10,12 +10,8 @@ name = "sdkwork-api-settings-standalone-gateway"
 path = "src/main.rs"
 
 [dependencies]
-sdkwork-settings-database-host.workspace = true
 sdkwork-api-settings-assembly.workspace = true
-sdkwork-settings-service-host.workspace = true
 sdkwork-settings-web-bootstrap.workspace = true
-sdkwork-database-config.workspace = true
-sdkwork-database-sqlx.workspace = true
 sdkwork-web-bootstrap.workspace = true
 tokio.workspace = true
 tracing.workspace = true
