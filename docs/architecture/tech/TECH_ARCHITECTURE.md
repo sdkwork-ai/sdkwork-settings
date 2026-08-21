@@ -92,7 +92,7 @@ crates/
   sdkwork-api-settings-standalone-gateway/
   sdkwork-routes-settings-app-api/
   sdkwork-routes-settings-backend-api/
-configs/topology/              topology profiles and env templates
+etc/topology/              topology profiles and env templates
 deployments/                   deployment manifests
 sdks/                          SDK families and generated SDK artifacts
 specs/                         repository/application machine contracts

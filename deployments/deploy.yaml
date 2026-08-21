@@ -1,79 +1,109 @@
-# SDKWork Settings deployment manifest
-# Authority: ../sdkwork-specs/SDKWORK_DEPLOY_SPEC.md, ../sdkwork-specs/DEPLOYMENT_SPEC.md
-
-application:
-  code: settings
-  name: SDKWork Settings
-  version: 0.1.0
+version: 2
+defaultProfile: cloud.production
 
 profiles:
-  standalone:
-    description: Self-contained Settings deployment with one application public ingress.
-    processes:
-      - name: application.public-ingress
-        binary: sdkwork-api-settings-standalone-gateway
-        port: 8080
-        env:
-          SDKWORK_SETTINGS_DEPLOYMENT_PROFILE: standalone
-          SDKWORK_SETTINGS_ENVIRONMENT: production
-          SDKWORK_SETTINGS_PROFILE_ID: standalone.production
-          SDKWORK_SETTINGS_APPLICATION_PUBLIC_INGRESS_BIND: 0.0.0.0:8080
-          SDKWORK_SETTINGS_APPLICATION_PUBLIC_HTTP_URL: http://127.0.0.1:8080
-          SDKWORK_DATABASE_URL: ${SDKWORK_DATABASE_URL}
-          SDKWORK_DATABASE_SCHEMA: sdkwork_ai_prod
-    database:
-      engine: postgresql
-      url: ${SDKWORK_DATABASE_URL}
-    browser:
-      target: apps/sdkwork-settings-pc
-      devServer: http://localhost:5173
-      apiProxy: http://localhost:8080
-
-  cloud:
-    description: Cloud Settings application service; platform ingress composition is owned externally.
-    processes:
-      - name: application.public-ingress
-        binary: sdkwork-api-settings-standalone-gateway
-        port: 8080
-        env:
-          SDKWORK_SETTINGS_DEPLOYMENT_PROFILE: cloud
-          SDKWORK_SETTINGS_ENVIRONMENT: production
-          SDKWORK_SETTINGS_PROFILE_ID: cloud.production
-          SDKWORK_SETTINGS_APPLICATION_PUBLIC_INGRESS_BIND: 0.0.0.0:8080
-          SDKWORK_SETTINGS_APPLICATION_PUBLIC_HTTP_URL: https://settings.sdkwork.com
-          SDKWORK_SETTINGS_PLATFORM_API_GATEWAY_HTTP_URL: https://api.sdkwork.com
-          SDKWORK_DATABASE_URL: ${SDKWORK_DATABASE_URL}
-          SDKWORK_DATABASE_SCHEMA: sdkwork_ai_prod
-    database:
-      engine: postgresql
-      url: ${SDKWORK_DATABASE_URL}
-    browser:
-      target: apps/sdkwork-settings-pc
-      cdn: https://cdn.sdkwork.com/apps/settings/releases/latest/web-universal-cloud-browser.zip
-
-install:
-  defaultPackageId: web-universal-cloud-browser-zip
-  packages:
-    - id: web-universal-cloud-browser-zip
-      name: SDKWork Settings Web Bundle
-      sourceType: WEB_URL
-      packageFormat: ZIP
-      platform: WEB
-      architecture: universal
+  cloud.test:
+    deployment:
       deploymentProfile: cloud
-      deviceClass: BROWSER
-    - id: web-universal-standalone-browser-zip
-      name: SDKWork Settings Standalone Web Bundle
-      sourceType: DIRECT_DOWNLOAD
-      packageFormat: ZIP
-      platform: WEB
-      architecture: universal
-      deploymentProfile: standalone
-      deviceClass: BROWSER
+      environment: test
+      deliveryKind: container-image
+      deploymentDriver: kubernetes
+      managementModel: sdkwork-managed
+      tenancyModel: single-tenant
+      isolationModel: dedicated
+      networkExposure: public
+      rolloutStrategy: rolling
+      availabilityMode: high-availability
+    install:
+      layout: binary-package
+    expose:
+      - domain: settings-test.sdkwork.com
+        tls: sdkwork.com
+        mode: web+api
+        web: adaptive
+    packages: []
+    overrides:
+      topology:
+        spec: specs/topology.spec.json
+        profile: cloud.test
+        env: etc/topology/cloud.test.env
 
-adaptive:
-  web:
-    enabled: true
-    inference:
-      api: true
-      websocket: true
+  cloud.staging:
+    deployment:
+      deploymentProfile: cloud
+      environment: staging
+      deliveryKind: container-image
+      deploymentDriver: kubernetes
+      managementModel: sdkwork-managed
+      tenancyModel: single-tenant
+      isolationModel: dedicated
+      networkExposure: public
+      rolloutStrategy: rolling
+      availabilityMode: high-availability
+    install:
+      layout: binary-package
+    expose:
+      - domain: settings-staging.sdkwork.com
+        tls: sdkwork.com
+        mode: web+api
+        web: adaptive
+    packages: []
+    overrides:
+      topology:
+        spec: specs/topology.spec.json
+        profile: cloud.staging
+        env: etc/topology/cloud.staging.env
+
+  cloud.production:
+    deployment:
+      deploymentProfile: cloud
+      environment: production
+      deliveryKind: container-image
+      deploymentDriver: kubernetes
+      managementModel: sdkwork-managed
+      tenancyModel: single-tenant
+      isolationModel: dedicated
+      networkExposure: public
+      rolloutStrategy: rolling
+      availabilityMode: high-availability
+    install:
+      layout: binary-package
+    expose:
+      - domain: settings.sdkwork.com
+        tls: sdkwork.com
+        mode: web+api
+        web: adaptive
+    packages: []
+    overrides:
+      topology:
+        spec: specs/topology.spec.json
+        profile: cloud.production
+        env: etc/topology/cloud.production.env
+      kubernetes:
+        reference: deployments/kubernetes/
+
+  standalone.production:
+    deployment:
+      deploymentProfile: standalone
+      environment: production
+      deliveryKind: host-package
+      deploymentDriver: nginx
+      managementModel: customer-managed
+      tenancyModel: single-tenant
+      isolationModel: dedicated
+      networkExposure: private
+      rolloutStrategy: recreate
+      availabilityMode: single-instance
+    install:
+      layout: binary-package
+    expose: []
+    packages: []
+    overrides:
+      topology:
+        spec: specs/topology.spec.json
+        profile: standalone.production
+        env: etc/topology/standalone.production.env
+      proxy:
+        upstreams:
+          application.public-ingress: http://127.0.0.1:8080
+          platform.api-gateway: http://127.0.0.1:3900
