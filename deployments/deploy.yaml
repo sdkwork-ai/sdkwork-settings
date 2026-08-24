@@ -40,6 +40,38 @@ profiles:
         tls: dtupay.cn
         mode: web+api
         web: adaptive
+      - domain: settings-test.skubc.com
+        tls: skubc.com
+        mode: web+api
+        web: adaptive
+      - domain: settings-test.skubc.cn
+        tls: skubc.cn
+        mode: web+api
+        web: adaptive
+      - domain: settings-test.zowalk.com
+        tls: zowalk.com
+        mode: web+api
+        web: adaptive
+      - domain: settings-test.zowalk.cn
+        tls: zowalk.cn
+        mode: web+api
+        web: adaptive
+      - domain: settings-test.offer86.com
+        tls: offer86.com
+        mode: web+api
+        web: adaptive
+      - domain: settings-test.offer86.cn
+        tls: offer86.cn
+        mode: web+api
+        web: adaptive
+      - domain: settings-test.86offer.com
+        tls: 86offer.com
+        mode: web+api
+        web: adaptive
+      - domain: settings-test.86offer.cn
+        tls: 86offer.cn
+        mode: web+api
+        web: adaptive
     packages: []
     overrides:
       topology:
@@ -85,6 +117,38 @@ profiles:
         tls: dtupay.cn
         mode: web+api
         web: adaptive
+      - domain: settings-staging.skubc.com
+        tls: skubc.com
+        mode: web+api
+        web: adaptive
+      - domain: settings-staging.skubc.cn
+        tls: skubc.cn
+        mode: web+api
+        web: adaptive
+      - domain: settings-staging.zowalk.com
+        tls: zowalk.com
+        mode: web+api
+        web: adaptive
+      - domain: settings-staging.zowalk.cn
+        tls: zowalk.cn
+        mode: web+api
+        web: adaptive
+      - domain: settings-staging.offer86.com
+        tls: offer86.com
+        mode: web+api
+        web: adaptive
+      - domain: settings-staging.offer86.cn
+        tls: offer86.cn
+        mode: web+api
+        web: adaptive
+      - domain: settings-staging.86offer.com
+        tls: 86offer.com
+        mode: web+api
+        web: adaptive
+      - domain: settings-staging.86offer.cn
+        tls: 86offer.cn
+        mode: web+api
+        web: adaptive
     packages: []
     overrides:
       topology:
@@ -128,6 +192,38 @@ profiles:
         web: adaptive
       - domain: settings.dtupay.cn
         tls: dtupay.cn
+        mode: web+api
+        web: adaptive
+      - domain: settings.skubc.com
+        tls: skubc.com
+        mode: web+api
+        web: adaptive
+      - domain: settings.skubc.cn
+        tls: skubc.cn
+        mode: web+api
+        web: adaptive
+      - domain: settings.zowalk.com
+        tls: zowalk.com
+        mode: web+api
+        web: adaptive
+      - domain: settings.zowalk.cn
+        tls: zowalk.cn
+        mode: web+api
+        web: adaptive
+      - domain: settings.offer86.com
+        tls: offer86.com
+        mode: web+api
+        web: adaptive
+      - domain: settings.offer86.cn
+        tls: offer86.cn
+        mode: web+api
+        web: adaptive
+      - domain: settings.86offer.com
+        tls: 86offer.com
+        mode: web+api
+        web: adaptive
+      - domain: settings.86offer.cn
+        tls: 86offer.cn
         mode: web+api
         web: adaptive
     packages: []
@@ -177,6 +273,38 @@ profiles:
         mode: web
         web: adaptive
         domain: settings.dtupay.cn
+      - tls: skubc.com
+        mode: web
+        web: adaptive
+        domain: settings.skubc.com
+      - tls: skubc.cn
+        mode: web
+        web: adaptive
+        domain: settings.skubc.cn
+      - tls: zowalk.com
+        mode: web
+        web: adaptive
+        domain: settings.zowalk.com
+      - tls: zowalk.cn
+        mode: web
+        web: adaptive
+        domain: settings.zowalk.cn
+      - tls: offer86.com
+        mode: web
+        web: adaptive
+        domain: settings.offer86.com
+      - tls: offer86.cn
+        mode: web
+        web: adaptive
+        domain: settings.offer86.cn
+      - tls: 86offer.com
+        mode: web
+        web: adaptive
+        domain: settings.86offer.com
+      - tls: 86offer.cn
+        mode: web
+        web: adaptive
+        domain: settings.86offer.cn
     packages: []
     overrides:
       topology:
