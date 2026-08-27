@@ -38,6 +38,9 @@ config/*.local.toml
 .DS_Store
 Thumbs.db
 
+# Runtime-generated env config (not tracked)
+**/public/runtime-env.json
+
 # SDKWork runtime (user-private, never tracked)
 ~/.sdkwork/
 .runtime/
