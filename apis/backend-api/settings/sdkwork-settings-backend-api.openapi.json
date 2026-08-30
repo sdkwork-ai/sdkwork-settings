@@ -540,8 +540,9 @@
             "required": false,
             "description": "Filter revisions by configuration resource id.",
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string",
+              "format": "int64",
+              "x-sdkwork-int64-string": true
             }
           },
           {
@@ -831,14 +832,16 @@
         "description": "A single tenant configuration entry.",
         "properties": {
           "id": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Unique tenant configuration identifier."
+            "description": "Unique tenant configuration identifier.",
+            "x-sdkwork-int64-string": true
           },
           "tenantId": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Owning tenant identifier."
+            "description": "Owning tenant identifier.",
+            "x-sdkwork-int64-string": true
           },
           "namespace": {
             "type": "string",
@@ -867,14 +870,16 @@
             "description": "Last update timestamp (UTC)."
           },
           "createdBy": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Identifier of the operator who created the configuration."
+            "description": "Identifier of the operator who created the configuration.",
+            "x-sdkwork-int64-string": true
           },
           "updatedBy": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Identifier of the operator who last updated the configuration."
+            "description": "Identifier of the operator who last updated the configuration.",
+            "x-sdkwork-int64-string": true
           }
         }
       },
@@ -916,9 +921,10 @@
         "description": "A single system setting entry.",
         "properties": {
           "id": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Unique system setting identifier."
+            "description": "Unique system setting identifier.",
+            "x-sdkwork-int64-string": true
           },
           "namespace": {
             "type": "string",
@@ -957,14 +963,16 @@
             "description": "Last update timestamp (UTC)."
           },
           "createdBy": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Identifier of the operator who created the setting."
+            "description": "Identifier of the operator who created the setting.",
+            "x-sdkwork-int64-string": true
           },
           "updatedBy": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Identifier of the operator who last updated the setting."
+            "description": "Identifier of the operator who last updated the setting.",
+            "x-sdkwork-int64-string": true
           }
         }
       },
@@ -1018,22 +1026,25 @@
         "description": "A single configuration change revision record for audit.",
         "properties": {
           "id": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Unique revision identifier."
+            "description": "Unique revision identifier.",
+            "x-sdkwork-int64-string": true
           },
           "tenantId": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Tenant context for the revision."
+            "description": "Tenant context for the revision.",
+            "x-sdkwork-int64-string": true
           },
           "configType": {
             "$ref": "#/components/schemas/ConfigType"
           },
           "configId": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Identifier of the affected configuration resource."
+            "description": "Identifier of the affected configuration resource.",
+            "x-sdkwork-int64-string": true
           },
           "namespace": {
             "type": "string",
@@ -1063,9 +1074,10 @@
             "$ref": "#/components/schemas/ConfigOperation"
           },
           "operatorId": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Identifier of the operator who performed the change."
+            "description": "Identifier of the operator who performed the change.",
+            "x-sdkwork-int64-string": true
           },
           "operatorIp": {
             "type": "string",

@@ -467,7 +467,8 @@
           "500": {
             "$ref": "#/components/responses/InternalServerError"
           }
-        }
+        },
+        "parameters": []
       }
     }
   },
@@ -644,19 +645,22 @@
         "description": "A single user preference entry.",
         "properties": {
           "id": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Unique preference identifier."
+            "description": "Unique preference identifier.",
+            "x-sdkwork-int64-string": true
           },
           "tenantId": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Owning tenant identifier."
+            "description": "Owning tenant identifier.",
+            "x-sdkwork-int64-string": true
           },
           "userId": {
-            "type": "integer",
+            "type": "string",
             "format": "int64",
-            "description": "Owning user identifier."
+            "description": "Owning user identifier.",
+            "x-sdkwork-int64-string": true
           },
           "namespace": {
             "type": "string",
