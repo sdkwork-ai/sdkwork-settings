@@ -10,6 +10,7 @@
 //! `assemble_api_router_from_env` and projects `.router`
 //! (API_ASSEMBLY_SPEC §6.1).
 
+use sdkwork_web_bootstrap::WebModule;
 use std::sync::Arc;
 
 use sdkwork_settings_database_host::bootstrap_settings_database_from_env;
@@ -156,4 +157,11 @@ pub async fn assemble_api_router_from_env() -> Result<ApiAssembly, String> {
     let host = Arc::new(SettingsServiceHost::new(db_host.pool().clone()));
     let state = SettingsAppState::new(host);
     assemble_api_router(state).await
+}
+
+/// Canonical Web Module definition for this application
+/// (API_ASSEMBLY_SPEC §4.1.1): the complete HTTP surface — every route,
+/// manifest, and OpenAPI document of this owner — as one installable module.
+pub async fn web_module() -> Result<WebModule, String> {
+    Ok(WebModule::from_contribution(assemble_api_router_from_env().await?))
 }

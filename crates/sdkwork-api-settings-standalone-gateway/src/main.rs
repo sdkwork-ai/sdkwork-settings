@@ -15,6 +15,7 @@
 //! - `SDKWORK_SETTINGS_APPLICATION_PUBLIC_INGRESS_BIND`: 应用公开入口监听地址(默认 `0.0.0.0:8080`)
 
 use sdkwork_api_settings_assembly::assemble_api_router_from_env;
+use sdkwork_web_bootstrap::ApiModuleRegistry;
 use sdkwork_settings_web_bootstrap::{
     mount_settings_infra_routes, settings_service_router_config,
 };
@@ -34,9 +35,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     tracing::info!(target: "sdkwork_settings::standalone_gateway", "starting sdkwork-api-settings-standalone-gateway");
 
     // 装配路由: assembly owns service construction and business routes; listener owns infra routes.
-    let assembly = assemble_api_router_from_env()
+    let mut module_registry = ApiModuleRegistry::new();
+    module_registry.add_module(assemble_api_router_from_env()
         .await
-        .map_err(|e| format!("Settings 应用装配失败: {e}"))?;
+        .map_err(|e| format!("Settings 应用装配失败: {e}"))?);
+    let assembly = module_registry.try_compose("SDKWork Settings API")?;
     let router = mount_settings_infra_routes(assembly.router, settings_service_router_config());
     tracing::info!(target: "sdkwork_settings::standalone_gateway", "router assembled through gateway assembly");
 
