@@ -1,10 +1,14 @@
 [package]
+rust-version.workspace = true
 name = "sdkwork-routes-settings-backend-api"
 edition.workspace = true
 license.workspace = true
 version.workspace = true
 description = "SDKWork Settings backend-api routes for /settings/v1/backend-api/*"
 
+
+[lints]
+workspace = true
 [lib]
 name = "sdkwork_routes_settings_backend_api"
 path = "src/lib.rs"

@@ -1,4 +1,5 @@
 [package]
+rust-version.workspace = true
 name = "sdkwork-api-settings-standalone-gateway"
 edition.workspace = true
 license.workspace = true
@@ -9,6 +10,9 @@ description = "SDKWork Settings standalone application gateway"
 name = "sdkwork-api-settings-standalone-gateway"
 path = "src/main.rs"
 
+
+[lints]
+workspace = true
 [dependencies]
 sdkwork-api-settings-assembly.workspace = true
 sdkwork-settings-web-bootstrap.workspace = true

@@ -1,10 +1,14 @@
 [package]
+rust-version.workspace = true
 name = "sdkwork-settings-web-bootstrap"
 edition.workspace = true
 license.workspace = true
 version.workspace = true
 description = "SDKWork Settings HTTP service web-framework bootstrap"
 
+
+[lints]
+workspace = true
 [lib]
 name = "sdkwork_settings_web_bootstrap"
 path = "src/lib.rs"

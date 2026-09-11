@@ -1,10 +1,14 @@
 [package]
+rust-version.workspace = true
 name = "sdkwork-settings-database-host"
 edition.workspace = true
 license.workspace = true
 version.workspace = true
 description = "SDKWork Settings database lifecycle bootstrap"
 
+
+[lints]
+workspace = true
 [lib]
 name = "sdkwork_settings_database_host"
 path = "src/lib.rs"

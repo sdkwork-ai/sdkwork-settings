@@ -1,10 +1,14 @@
 [package]
+rust-version.workspace = true
 name = "sdkwork-routes-settings-app-api"
 edition.workspace = true
 license.workspace = true
 version.workspace = true
 description = "SDKWork Settings app-api routes for /settings/v1/app-api/*"
 
+
+[lints]
+workspace = true
 [lib]
 name = "sdkwork_routes_settings_app_api"
 path = "src/lib.rs"
