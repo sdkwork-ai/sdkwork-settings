@@ -1,31 +1,56 @@
 {
   "schemaVersion": 3,
-  "kind": "sdkwork.app",
+  "kind": "agent.app",
   "app": {
-    "key": "sdkwork-settings-pc",
-    "name": "sdkwork-settings-pc",
+    "key": "settings",
+    "name": "settings",
     "displayName": "SDKWork Settings",
-    "appId": "sdkwork-settings-pc",
-    "surface": "pc",
-    "framework": "react+vite+tailwindcss-v4",
-    "versionSource": "package.json",
+    "description": "SDKWork Settings configuration center providing multi-tenant, multi-user, multi-language configuration management with multi-architecture integration support.",
+    "vendor": "SDKWork",
     "officialWebsiteUrl": "https://sdkwork.com/apps/settings",
-    "appType": "APP_HTML"
+    "supportUrl": "https://sdkwork.com/support",
+    "privacyPolicyUrl": "https://sdkwork.com/privacy",
+    "termsOfServiceUrl": "https://sdkwork.com/terms",
+    "iconUrl": "https://cdn.sdkwork.com/apps/settings/assets/icon-1024.png",
+    "appType": "APP_HTML",
+    "versionSource": "package.json",
+    "identifiers": {
+      "packageName": null,
+      "bundleId": null,
+      "desktopAppId": "com.sdkwork.settings.desktop",
+      "containerImage": "registry.sdkwork.com/apps/settings"
+    }
   },
-  "backend": {},
+  "backend": {
+    "profileKey": "backend-root-admin",
+    "ownerMode": "tenant",
+    "grantMode": "current",
+    "platform": "WEB",
+    "appId": "sdkwork-settings-pc",
+    "tenantId": "100001",
+    "organizationId": "0",
+    "accessTokenPermissionScope": [
+      "iam:self"
+    ]
+  },
   "runtime": {
     "family": "web",
+    "framework": "web",
     "runtimes": [
       "WEB",
       "BROWSER"
     ],
+    "deliveryModes": [
+      "WEB_URL",
+      "DIRECT_DOWNLOAD"
+    ],
     "defaultPlatform": "WEB",
-    "defaultDeploymentProfile": "cloud",
+    "defaultArchitecture": "x64",
     "supportedDeploymentProfiles": [
       "cloud",
       "standalone"
     ],
-    "framework": "web"
+    "defaultDeploymentProfile": "cloud"
   },
   "media": {
     "icons": {
@@ -105,61 +130,64 @@
   },
   "publish": {
     "status": "ACTIVE",
+    "installSkill": {
+      "name": "sdkwork-skills-app"
+    },
     "platforms": [
       "WEB"
     ],
     "installPlatforms": [
       "WEB"
     ],
-    "defaultPackageId": "linux-x64-cloud-server-tar-gz",
-    "installSkill": {
-      "name": "sdkwork-skills-app"
-    },
+    "defaultPackageId": "web-universal-cloud-browser-zip",
+    "storeUrl": "https://sdkwork.com/apps/settings",
     "stores": [],
-    "storeUrl": "https://sdkwork.com/apps/settings"
+    "config": {
+      "workspaceRoot": "apps/sdkwork-settings-pc",
+      "framework": "web",
+      "managedBy": "apps/scripts/initialize-sdkwork-app-standard-v3.mjs"
+    }
   },
   "artifacts": {
     "installConfig": {
-      "defaultPackageId": "linux-x64-cloud-server-tar-gz",
+      "defaultPackageId": "web-universal-cloud-browser-zip",
       "installCommand": "sdkwork install settings",
       "launchCommand": "sdkwork open settings",
       "uninstallCommand": "sdkwork uninstall settings",
       "packages": [
         {
-          "id": "linux-x64-cloud-server-tar-gz",
-          "name": "Settings cloud server archive",
-          "sourceType": "BINARY_URL",
-          "packageFormat": "TAR_GZ",
-          "platform": "API",
-          "url": "https://cdn.sdkwork.com/apps/settings/STABLE/0.1.0/linux-x64-cloud-server-tar-gz-0.1.0.tar.gz",
-          "architecture": "x64",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "3dd67c622896ee41bc5a989a3d1175245403e7664194c4d7c3115ca8a1af0602",
+          "id": "web-universal-cloud-browser-zip",
+          "name": "SDKWork Settings Web Bundle",
+          "sourceType": "WEB_URL",
+          "packageFormat": "ZIP",
+          "platform": "WEB",
+          "architecture": "universal",
           "deploymentProfile": "cloud",
-          "runtimeTarget": "server",
-          "profileBinding": "fixed",
+          "deviceClass": "BROWSER",
+          "url": "https://cdn.sdkwork.com/apps/settings/releases/latest/web-universal-cloud-browser.zip",
+          "sortOrder": 0,
           "enabled": true,
-          "metadata": {
-            "releaseBuildDeferred": false
-          }
+          "runtimeTarget": "browser",
+          "profileBinding": "fixed",
+          "targetPlatform": "web",
+          "clientArchitecture": "pc-web"
         },
         {
-          "id": "linux-x64-standalone-server-tar-gz",
-          "name": "Settings standalone server archive",
+          "id": "web-universal-standalone-browser-zip",
+          "name": "SDKWork Settings Standalone Web Bundle",
           "sourceType": "BINARY_URL",
-          "packageFormat": "TAR_GZ",
-          "platform": "API",
-          "url": "https://cdn.sdkwork.com/apps/settings/STABLE/0.1.0/linux-x64-standalone-server-tar-gz-0.1.0.tar.gz",
-          "architecture": "x64",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "aab3a15545242ff33695f12dd68e5b2f35a173ceda0ea6743ae02a1cb63f0196",
+          "packageFormat": "ZIP",
+          "platform": "WEB",
+          "architecture": "universal",
           "deploymentProfile": "standalone",
-          "runtimeTarget": "server",
-          "profileBinding": "fixed",
+          "deviceClass": "BROWSER",
+          "url": "https://cdn.sdkwork.com/apps/settings/releases/latest/web-universal-standalone-browser.zip",
+          "sortOrder": 1,
           "enabled": true,
-          "metadata": {
-            "releaseBuildDeferred": false
-          }
+          "runtimeTarget": "browser",
+          "profileBinding": "fixed",
+          "targetPlatform": "web",
+          "clientArchitecture": "pc-web"
         }
       ]
     }
@@ -183,8 +211,8 @@
           "Download package matrix normalized"
         ],
         "packageIds": [
-          "linux-x64-cloud-server-tar-gz",
-          "linux-x64-standalone-server-tar-gz"
+          "web-universal-cloud-browser-zip",
+          "web-universal-standalone-browser-zip"
         ],
         "publishedAt": "2026-05-07T00:00:00Z",
         "current": true,

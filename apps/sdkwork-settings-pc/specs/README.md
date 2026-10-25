@@ -3,7 +3,7 @@
 本目录是 `@sdkwork/sdkwork-settings-pc` 的本地 SDKWork 组件契约说明。
 
 - 组件根:`sdkwork-settings/apps/sdkwork-settings-pc`
-- 上级清单:`../../sdkwork.app.config.json`
+- 上级清单:`../../agent.app.config.json`
 - 规范索引:`../../../sdkwork-specs/README.md`
 
 ## 适用规范
