@@ -76,3 +76,15 @@ coverage/
 *.log
 .DS_Store
 Thumbs.db
+
+# ---- auto-audited: local artifacts that must never be committed ----
+*.key
+*.pem
+*.p12
+*.pfx
+*.keystore
+tmp/
+temp/
+*.tmp
+*.temp
+.next/
