@@ -42,6 +42,21 @@ This application integrates the following SDKWork frameworks per `sdkwork-specs`
 - `sdkwork-drive` — file upload (avatar, logo, config import, attachments)
 - `sdkwork-discovery` — deferred (no RPC services in Phase 1)
 
+## Frontend Composition
+
+The PC settings surface is built from the shared SDKWork Appbase settings
+components:
+
+- `@sdkwork/settings-core` — catalog, layered values, validation, save modes,
+  slots, i18n, and the appType adapter matrix.
+- `@sdkwork/settings-pc-react` — `SdkworkSettingsProvider`,
+  `SdkworkSettingsCenter`, accessible controls, and slot rendering.
+
+The application root supplies the runtime, a `SdkworkSettingsStorePort`, theme
+synchronization, and action handlers. It does not fork settings navigation,
+validation, dirty tracking, or save semantics. See
+[apps/sdkwork-settings-pc/README.md](apps/sdkwork-settings-pc/README.md).
+
 ## Standards
 
 This repository follows `../sdkwork-specs/` global standards by relative path. See [AGENTS.md](AGENTS.md) for the task-to-spec loading matrix.
