@@ -12,7 +12,14 @@
     "officialWebsiteUrl": "https://sdkwork.com/apps/settings",
     "appType": "APP_HTML"
   },
-  "backend": {},
+  "backend": {
+    "appId": "sdkwork-settings-pc",
+    "tenantId": "100001",
+    "organizationId": "0",
+    "accessTokenPermissionScope": [
+      "iam:self"
+    ]
+  },
   "runtime": {
     "family": "web",
     "runtimes": [
